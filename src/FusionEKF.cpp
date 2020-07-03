@@ -115,9 +115,11 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
       ekf_.x_(1) = measurement_pack.raw_measurements_(1);
     }
 
-//     float previous_timestamp_ = measurement_pack.timestamp_;
+    previous_timestamp_ = measurement_pack.timestamp_;
+//     previous_timestamp_ = measurement_pack.timestamp_;
 
     // done initializing, no need to predict or update
+    
     is_initialized_ = true;
     return;
   }
@@ -165,7 +167,6 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
    */
   //convert the time elapsed between the current and previous measurements
   
-
   if (measurement_pack.sensor_type_ == MeasurementPackage::RADAR) {
     // TODO: Radar updates
     MatrixXd Hj_temp(3,4);
